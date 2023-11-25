@@ -1,10 +1,10 @@
 package br.ufrn.imd.modelo;
 
-import java.nio.file.Path;
+import java.io.File;
 
 public class Musica {
 	private String nome;
-	private Path caminho;
+	private File arquivo;
 
 	public String getNome() {
 		return nome;
@@ -14,11 +14,11 @@ public class Musica {
 		this.nome = nome;
 	}
 
-	public Path getCaminho() {
-		return caminho;
+	public File getArquivo() {
+		return arquivo;
 	}
 
-	public void setCaminho(Path caminho) {
-		this.caminho = caminho;
+	public void setArquivo(File arquivo) {
+		this.arquivo = arquivo;
 	}
 }
