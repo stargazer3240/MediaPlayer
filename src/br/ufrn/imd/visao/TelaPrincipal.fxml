@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <MenuBar>
         <menus>
@@ -33,12 +34,15 @@
           </Menu>
         </menus>
       </MenuBar>
-      <HBox prefHeight="100.0" prefWidth="600.0" spacing="30.0" VBox.vgrow="ALWAYS">
+      <HBox prefHeight="296.0" prefWidth="680.0" spacing="30.0" VBox.vgrow="ALWAYS">
          <children>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" text="Novo Diretório" textAlignment="CENTER" wrapText="true" />
-                  <Button mnemonicParsing="false" text="Novo Arquivo" textAlignment="CENTER" wrapText="true" />
+                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Add directory" textAlignment="CENTER" translateY="20.0" wrapText="true" />
+                  <Button mnemonicParsing="false" text="Add file" textAlignment="CENTER" translateY="20.0" wrapText="true">
+                     <rotationAxis>
+                        <Point3D />
+                     </rotationAxis></Button>
                </children>
                <HBox.margin>
                   <Insets />
@@ -49,30 +53,40 @@
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Label text="Músicas" />
-                  <ListView prefHeight="200.0" prefWidth="200.0" />
+                  <Label text="Songs" />
+                  <ListView prefHeight="249.0" prefWidth="136.0" />
                </children>
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Label fx:id="lbNomePlaylist" text="Label" />
-                  <ListView prefHeight="200.0" prefWidth="200.0" />
+                  <Label fx:id="lbNomePlaylist" text="&lt;playlist name&gt;" />
+                  <ListView prefHeight="249.0" prefWidth="138.0" />
                </children>
             </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox prefHeight="245.0" prefWidth="145.0">
                <children>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label fx:id="lbNomeUsuario" text="Label" />
+                  <ImageView fitHeight="99.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="lbNomeUsuario" text="&lt;username&gt;" />
                   <Label text="Playlists" />
                   <ListView prefHeight="200.0" prefWidth="200.0" />
-                  <Button mnemonicParsing="false" text="Button" />
+                  <Button mnemonicParsing="false" text="New playlist" />
                </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
             </VBox>
          </children>
          <padding>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </padding>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0" />
+      <HBox prefHeight="79.0" prefWidth="600.0">
+         <children>
+            <Button mnemonicParsing="false" text="Previous" translateY="40.0" />
+            <Button mnemonicParsing="false" text="Play" translateY="40.0" />
+            <Button mnemonicParsing="false" text="Next" translateY="40.0" />
+            <ProgressBar prefHeight="18.0" prefWidth="394.0" progress="0.0" translateX="45.0" translateY="45.0" />
+         </children>
+      </HBox>
    </children>
 </VBox>
