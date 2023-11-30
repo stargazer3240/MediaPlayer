@@ -1,6 +1,10 @@
 package br.ufrn.imd.controle;
 
+import java.io.IOException;
+
+import br.ufrn.imd.Main;
 import javafx.fxml.FXML;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -22,5 +26,10 @@ public class TelaLoginController {
 
 	@FXML
 	private TextField txtUsuario;
+
+	@FXML
+	public void abrirTelaCadastro() throws IOException {
+		Main.setRoot("TelaCadastro");
+	}
 
 }

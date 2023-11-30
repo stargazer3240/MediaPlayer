@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="5.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="200.0" spacing="5.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.controle.TelaLoginController">
    <children>
-      <GridPane maxHeight="70.0" VBox.vgrow="ALWAYS">
+      <GridPane>
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -31,12 +31,12 @@
       <VBox spacing="5.0">
          <children>
             <Button fx:id="btnLogin" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="Login" />
-            <Button fx:id="btnCadastro" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="Need an account?" />
+            <Button fx:id="btnCadastro" mnemonicParsing="false" onAction="#abrirTelaCadastro" prefHeight="30.0" prefWidth="200.0" text="Need an account?" />
          </children>
       </VBox>
       <Label fx:id="lblFeedback" alignment="CENTER" maxWidth="1.7976931348623157E308" text="Label" visible="false" />
    </children>
    <padding>
-      <Insets bottom="30.0" left="50.0" right="50.0" top="20.0" />
+      <Insets left="50.0" right="50.0" top="20.0" />
    </padding>
 </VBox>
