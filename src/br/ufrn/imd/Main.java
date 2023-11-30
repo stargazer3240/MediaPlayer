@@ -9,19 +9,21 @@ import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 
 public class Main extends Application {
-	private static Scene scene;
+	private static Stage stage;
 
 	@Override
-	public void start(Stage stage) throws IOException {
-		scene = new Scene(loadFXML("TelaLogin"));
+	public void start(Stage primaryStage) throws IOException {
+		stage = primaryStage;
+		Scene scene = new Scene(loadFXML("TelaLogin"));
 		stage.setScene(scene);
 		stage.setTitle("Media Player");
 		stage.setResizable(false);
 		stage.show();
 	}
 
-	public static void setRoot(String fxml) throws IOException {
-		scene.setRoot(loadFXML(fxml));
+	public static void trocarTela(String fxml) throws IOException {
+		Scene scene = new Scene(loadFXML(fxml));
+		stage.setScene(scene);
 	}
 
 	private static Parent loadFXML(String fxml) throws IOException {
