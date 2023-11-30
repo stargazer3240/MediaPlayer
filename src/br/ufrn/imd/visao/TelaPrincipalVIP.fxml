@@ -9,6 +9,8 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TreeView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
@@ -50,6 +52,16 @@
                      <padding>
                         <Insets top="5.0" />
                      </padding>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="200.0" spacing="5.0">
+                     <children>
+                        <ImageView fitHeight="200.0" fitWidth="209.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@vip.png" />
+                           </image></ImageView>
+                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Playlists" />
+                        <ListView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                     </children>
                   </VBox>
                </children>
             </HBox>

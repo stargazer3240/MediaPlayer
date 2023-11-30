@@ -9,7 +9,7 @@ import javafx.fxml.FXMLLoader;
 public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("visao/TelaPrincipal.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("visao/TelaLogin.fxml"));
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.setTitle("Media Player");
