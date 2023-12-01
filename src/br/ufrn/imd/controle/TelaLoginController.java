@@ -1,10 +1,10 @@
 package br.ufrn.imd.controle;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import br.ufrn.imd.Main;
 import br.ufrn.imd.dao.UsuarioDao;
+
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
@@ -37,15 +37,6 @@ public class TelaLoginController {
 		String senha = txtSenha.getText();
 		boolean validado = uDao.checarCredenciais(login, senha);
 		if (validado) {
-			lblFeedback.setText("Loading user.");
-			lblFeedback.setTextFill(Paint.valueOf("green"));
-			lblFeedback.setVisible(true);
-			try {
-				TimeUnit.SECONDS.sleep(2);
-			} catch (InterruptedException e) {
-				Thread.currentThread().interrupt();
-				e.printStackTrace();
-			}
 			UsuarioDao.tipoUsuario tipo = uDao.identificarTipo();
 			if (tipo == UsuarioDao.tipoUsuario.COMUM) {
 				abrirTelaPrincipal();
@@ -53,15 +44,19 @@ public class TelaLoginController {
 				abrirTelaPrincipalVip();
 			}
 		} else {
-			lblFeedback.setText("Invalid login, try again!");
-			lblFeedback.setTextFill(Paint.valueOf("red"));
-			lblFeedback.setVisible(true);
+			gerarfeedbackInvalido();
 		}
 	}
 
 	@FXML
 	public void abrirTelaCadastro() throws IOException {
 		Main.trocarTela("TelaCadastro");
+	}
+
+	private void gerarfeedbackInvalido() {
+		lblFeedback.setText("Invalid login, try again!");
+		lblFeedback.setTextFill(Paint.valueOf("red"));
+		lblFeedback.setVisible(true);
 	}
 
 	private void abrirTelaPrincipal() throws IOException {
