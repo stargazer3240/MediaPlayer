@@ -45,4 +45,11 @@ public class UsuarioDao {
 			return tipoUsuario.VIP;
 		}
 	}
+
+	public void adicionarDiretorios() {
+		for (Usuario u : usuarios) {
+			DiretorioDao dDao = DiretorioDao.getInstance();
+			dDao.adicionarDiretorios(u.getId(), u.getDiretorios());
+		}
+	}
 }
