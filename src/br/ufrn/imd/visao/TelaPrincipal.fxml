@@ -8,44 +8,42 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.controle.TelaPrincipalController">
    <children>
       <MenuBar>
         <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
+          <Menu mnemonicParsing="false" text="Account">
+               <items>
+                  <MenuItem fx:id="mItLogout" mnemonicParsing="false" text="Logout" />
+                  <MenuItem fx:id="mItQuit" mnemonicParsing="false" text="Quit" />
+               </items>
           </Menu>
         </menus>
       </MenuBar>
       <VBox spacing="5.0" VBox.vgrow="ALWAYS">
          <children>
-            <HBox spacing="5.0" VBox.vgrow="ALWAYS">
+            <HBox spacing="10.0" VBox.vgrow="ALWAYS">
                <children>
-                  <TreeView prefWidth="300.0" showRoot="false" />
-                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" HBox.hgrow="ALWAYS">
+                  <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="25.0" text="Folders" />
+                        <ListView fx:id="listFolders" VBox.vgrow="ALWAYS" />
+                     </children>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </VBox>
+                  <VBox spacing="5.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="25.0" text="Songs">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
                         </Label>
-                        <ListView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                        <ListView fx:id="listSongs" VBox.vgrow="ALWAYS" />
                      </children>
                      <padding>
                         <Insets top="5.0" />
@@ -56,9 +54,9 @@
             <ProgressBar maxWidth="1.7976931348623157E308" prefHeight="10.0" progress="0.0" />
             <HBox alignment="CENTER" spacing="2.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 40;" text="&lt;&lt;" />
-                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100;" text="Play" />
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 40;" text="&gt;&gt;" />
+                  <Button fx:id="btnPrevious" mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 40;" text="&lt;&lt;" />
+                  <Button fx:id="btnPlay" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100;" text="Play" />
+                  <Button fx:id="btnNext" mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 40;" text="&gt;&gt;" />
                </children>
                <padding>
                   <Insets bottom="5.0" />

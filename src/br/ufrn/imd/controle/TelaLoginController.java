@@ -14,8 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
 
 public class TelaLoginController {
-	private UsuarioDao uDao = UsuarioDao.getInstance();
-
 	@FXML
 	private Button btnCadastro;
 
@@ -35,6 +33,7 @@ public class TelaLoginController {
 	public void logar() throws IOException {
 		String login = txtUsuario.getText();
 		String senha = txtSenha.getText();
+		UsuarioDao uDao = UsuarioDao.getInstance();
 		boolean validado = uDao.checarCredenciais(login, senha);
 		if (validado) {
 			UsuarioDao.TipoUsuario tipo = uDao.identificarTipo();

@@ -55,10 +55,10 @@ public class UsuarioDao {
 	}
 
 	public TipoUsuario identificarTipo() {
-		if (atual instanceof Usuario) {
-			return TipoUsuario.COMUM;
-		} else {
+		if (atual instanceof UsuarioVIP) {
 			return TipoUsuario.VIP;
+		} else {
+			return TipoUsuario.COMUM;
 		}
 	}
 
