@@ -32,7 +32,7 @@
             <PasswordField fx:id="txtSenha" promptText="password" GridPane.rowIndex="1" />
             <HBox alignment="CENTER" spacing="10.0" GridPane.rowIndex="2">
                <children>
-                  <RadioButton fx:id="btnComum" mnemonicParsing="false" text="Regular">
+                  <RadioButton fx:id="btnComum" mnemonicParsing="false" selected="true" text="Regular">
                      <toggleGroup>
                         <ToggleGroup fx:id="User" />
                      </toggleGroup></RadioButton>
@@ -43,7 +43,7 @@
       </GridPane>
       <VBox spacing="5.0">
          <children>
-            <Button fx:id="btnCadastro" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="Create Account" />
+            <Button fx:id="btnCadastro" mnemonicParsing="false" onAction="#checarCredenciais" prefHeight="30.0" prefWidth="200.0" text="Create Account" />
             <Button fx:id="btnVoltar" mnemonicParsing="false" onAction="#abrirTelaLogin" prefHeight="30.0" prefWidth="200.0" text="Go back to login" />
          </children>
       </VBox>

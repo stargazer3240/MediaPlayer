@@ -37,14 +37,14 @@ public class TelaLoginController {
 		String senha = txtSenha.getText();
 		boolean validado = uDao.checarCredenciais(login, senha);
 		if (validado) {
-			UsuarioDao.tipoUsuario tipo = uDao.identificarTipo();
-			if (tipo == UsuarioDao.tipoUsuario.COMUM) {
-				abrirTelaPrincipal();
+			UsuarioDao.TipoUsuario tipo = uDao.identificarTipo();
+			if (tipo == UsuarioDao.TipoUsuario.COMUM) {
+				abrirTela("TelaPrincipal");
 			} else {
-				abrirTelaPrincipalVip();
+				abrirTela("TelaPrincipalVIP");
 			}
 		} else {
-			gerarfeedbackInvalido();
+			gerarFeedbackInvalido();
 		}
 	}
 
@@ -53,17 +53,13 @@ public class TelaLoginController {
 		Main.trocarTela("TelaCadastro");
 	}
 
-	private void gerarfeedbackInvalido() {
+	private void gerarFeedbackInvalido() {
 		lblFeedback.setText("Invalid login, try again!");
 		lblFeedback.setTextFill(Paint.valueOf("red"));
 		lblFeedback.setVisible(true);
 	}
 
-	private void abrirTelaPrincipal() throws IOException {
-		Main.trocarTela("TelaPrincipal");
-	}
-
-	private void abrirTelaPrincipalVip() throws IOException {
-		Main.trocarTela("TelaPrincipalVIP");
+	private void abrirTela(String tela) throws IOException {
+		Main.trocarTela(tela);
 	}
 }

@@ -3,13 +3,15 @@ package br.ufrn.imd.dao;
 import java.util.ArrayList;
 
 import br.ufrn.imd.modelo.Usuario;
+import br.ufrn.imd.modelo.UsuarioVIP;
 
 public class UsuarioDao {
 	private static UsuarioDao uDao;
 	private ArrayList<Usuario> usuarios = new ArrayList<>();
 	private Usuario atual;
+	private static Integer ultimoId = 0;
 
-	public enum tipoUsuario {
+	public enum TipoUsuario {
 		COMUM, VIP
 	}
 
@@ -20,12 +22,26 @@ public class UsuarioDao {
 		return uDao;
 	}
 
-	public void adicionarUsuario(Usuario u) {
-		usuarios.add(u);
+	public void criarUsuario(String nome, String senha, TipoUsuario t) {
+		Usuario u;
+		if (t.equals(TipoUsuario.VIP)) {
+			u = new UsuarioVIP();
+		} else {
+			u = new Usuario();
+		}
+		u.setId(recuperarId());
+		u.setLogin(nome);
+		u.setSenha(senha);
+		adicionarUsuario(u);
 	}
 
-	public void removerUsuario(Usuario u) {
-		usuarios.remove(u);
+	private static Integer recuperarId() {
+		ultimoId++;
+		return ultimoId;
+	}
+
+	private void adicionarUsuario(Usuario u) {
+		usuarios.add(u);
 	}
 
 	public boolean checarCredenciais(String login, String senha) {
@@ -38,11 +54,11 @@ public class UsuarioDao {
 		return false;
 	}
 
-	public tipoUsuario identificarTipo() {
+	public TipoUsuario identificarTipo() {
 		if (atual instanceof Usuario) {
-			return tipoUsuario.COMUM;
+			return TipoUsuario.COMUM;
 		} else {
-			return tipoUsuario.VIP;
+			return TipoUsuario.VIP;
 		}
 	}
 
