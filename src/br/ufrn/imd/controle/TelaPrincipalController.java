@@ -18,6 +18,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -30,7 +31,7 @@ import javafx.scene.media.MediaPlayer.Status;
 import javafx.stage.DirectoryChooser;
 import javafx.util.Duration;
 
-public class TelaPrincipalController {
+public class TelaPrincipalController{
 
 	protected Media media;
 	protected MediaPlayer mediaPlayer;
@@ -123,20 +124,6 @@ public class TelaPrincipalController {
 		System.exit(0);
 	}
 
-	@FXML
-	protected void tocarMusica() {
-		if (!listFolders.getItems().isEmpty()) {
-			String dir = listFolders.getSelectionModel().selectedItemProperty().get();
-			String musica = listSongs.getSelectionModel().getSelectedItem();
-			Path p = Path.of(dir, musica);
-			if (!musica.isBlank()) {
-				media = new Media(p.toUri().toString());
-				mediaPlayer = new MediaPlayer(media);
-				update();
-			}
-		}
-	}
-
 	protected void update() {
 		mediaPlayer.setAutoPlay(true);
 
@@ -165,7 +152,9 @@ public class TelaPrincipalController {
 			}
 		});
 
-//		mediaPlayer.setOnEndOfMedia(this::musicNext);
+		mediaPlayer.setOnEndOfMedia(() -> {
+			musicNext();
+		});
 	}
 
 	@FXML
@@ -182,56 +171,164 @@ public class TelaPrincipalController {
 		}
 	}
 
-//	@FXML
-//	protected void musicNext() {
-//		if (songNumber < playlist.getMusicas().size() - 1) {
-//			songNumber++;
-//			mediaPlayer.stop();
-//			media = new Media(playlist.getMusicas().get(songNumber).getArquivo().toURI().toString());
-//			mediaPlayer = new MediaPlayer(media);
-//			update();
-//		} else {
-//			songNumber = 0;
-//			mediaPlayer.stop();
-//			media = new Media(playlist.getMusicas().get(songNumber).getArquivo().toURI().toString());
-//			mediaPlayer = new MediaPlayer(media);
-//			update();
-//		}
-//	}
-
 	@FXML
-	void musicPlay() {
-		mediaPlayer.getStatus();
-		if (!mediaPlayer.getStatus().equals(Status.PLAYING)) {
-			mediaPlayer.play();
-		} else if (!mediaPlayer.getStatus().equals(Status.PAUSED)) {
-			mediaPlayer.pause();
+	protected void musicNext(ActionEvent event) {
+		musicNext();
+	}
+	
+	protected void musicNext() {
+		if(mediaPlayer != null) {
+			if (!listFolders.getItems().isEmpty()) {
+				if(songNumber < listSongs.getItems().size() - 1) {
+					musicStop();
+					songNumber++;
+					String dir = listFolders.getSelectionModel().selectedItemProperty().get();
+					String musica = listSongs.getItems().get(songNumber);
+					Path p = Path.of(dir, musica);
+					if (!musica.isBlank()) {
+						media = new Media(p.toUri().toString());
+						mediaPlayer = new MediaPlayer(media);
+						sSongProgress.setValue(0);
+						update();
+					}
+				}
+				else {
+					musicStop();
+					songNumber = 0;
+					String dir = listFolders.getSelectionModel().selectedItemProperty().get();
+					String musica = listSongs.getItems().get(songNumber);
+					Path p = Path.of(dir, musica);
+					if (!musica.isBlank()) {
+						media = new Media(p.toUri().toString());
+						mediaPlayer = new MediaPlayer(media);
+						sSongProgress.setValue(0);
+						update();
+					}
+				}
+			}
 		}
 	}
-//
-//	@FXML
-//	void musicPrevious(ActionEvent event) {
-//		if (songNumber > 0) {
-//			songNumber--;
-//			mediaPlayer.stop();
-//			media = new Media(playlist.getMusicas().get(songNumber).getArquivo().toURI().toString());
-//			mediaPlayer = new MediaPlayer(media);
-//			update();
-//		} else {
-//			songNumber = playlist.getMusicas().size() - 1;
-//			mediaPlayer.stop();
-//			media = new Media(playlist.getMusicas().get(songNumber).getArquivo().toURI().toString());
-//			mediaPlayer = new MediaPlayer(media);
-//			update();
+
+	@FXML
+	void musicPlay(ActionEvent event) {
+		
+		if(mediaPlayer == null) {
+			if (!listFolders.getItems().isEmpty()) {
+				String dir = listFolders.getSelectionModel().selectedItemProperty().get();
+				String musica = listSongs.getSelectionModel().getSelectedItem();
+				Path p = Path.of(dir, musica);
+				if (!musica.isBlank()) {
+					media = new Media(p.toUri().toString());
+					mediaPlayer = new MediaPlayer(media);
+					sSongProgress.setValue(0);
+					songNumber = listSongs.getSelectionModel().getSelectedIndex();
+					System.out.println(songNumber);
+					mediaPlayer.play();
+					update();
+				}
+			}
+		}
+		
+		if (mediaPlayer.getStatus().equals(Status.PLAYING)){
+			musicStop();
+			if (!listFolders.getItems().isEmpty()) {
+				String dir = listFolders.getSelectionModel().selectedItemProperty().get();
+				String musica = listSongs.getSelectionModel().getSelectedItem();
+				Path p = Path.of(dir, musica);
+				if (!musica.isBlank()) {
+					media = new Media(p.toUri().toString());
+					mediaPlayer = new MediaPlayer(media);
+					sSongProgress.setValue(0);
+					songNumber = listSongs.getSelectionModel().getSelectedIndex();
+					System.out.println(songNumber);
+					mediaPlayer.play();
+					update();
+				}
+			}
+		}
+		
+		
+		
+//		if (mediaPlayer != null || !mediaPlayer.getStatus().equals(Status.PLAYING)) {
+//			mediaPlayer.play();
+//		} else if (!mediaPlayer.getStatus().equals(Status.PAUSED)) {
+//			mediaPlayer.pause();
 //		}
-//	}
-//
-//	@FXML
-//	void musicStop(ActionEvent event) {
-//		mediaPlayer.getStatus();
-//		if (!mediaPlayer.getStatus().equals(Status.STOPPED)) {
-//			mediaPlayer.stop();
-//			sSongProgress.setValue(0);
+	}
+	
+	@FXML
+	void musicPause(ActionEvent event) {
+		
+	}
+
+	@FXML
+	void musicPrevious(ActionEvent event) {
+		musicPrevious();
+	}
+	
+	protected void musicPrevious() {
+//		if(mediaPlayer != null) {
+//			if (!listFolders.getItems().isEmpty()) {
+//				musicStop();
+//				
+//				
+//				songNumber--;
+//				String dir = listFolders.getSelectionModel().selectedItemProperty().get();
+//				String musica = listSongs.getItems().get(songNumber);
+//				Path p = Path.of(dir, musica);
+//				if (!musica.isBlank()) {
+//					media = new Media(p.toUri().toString());
+//					mediaPlayer = new MediaPlayer(media);
+//					sSongProgress.setValue(0);
+//					update();
+//				}
+//			}
 //		}
-//	}
+		
+		if(mediaPlayer != null) {
+			if (!listFolders.getItems().isEmpty()) {
+				musicStop();
+				if(songNumber > 0) {
+					songNumber--;
+					String dir = listFolders.getSelectionModel().selectedItemProperty().get();
+					String musica = listSongs.getItems().get(songNumber);
+					Path p = Path.of(dir, musica);
+					if (!musica.isBlank()) {
+						media = new Media(p.toUri().toString());
+						mediaPlayer = new MediaPlayer(media);
+						sSongProgress.setValue(0);
+						update();
+					}
+				}
+				else {
+					songNumber = listSongs.getItems().size() - 1;
+					System.out.println(listSongs.getItems().size());
+					System.out.println("prev: " + songNumber);
+					String dir = listFolders.getSelectionModel().selectedItemProperty().get();
+					String musica = listSongs.getItems().get(songNumber);
+					Path p = Path.of(dir, musica);
+					if (!musica.isBlank()) {
+						media = new Media(p.toUri().toString());
+						mediaPlayer = new MediaPlayer(media);
+						sSongProgress.setValue(0);
+						update();
+					}
+				}
+			}
+		}
+	}
+
+	@FXML
+	void musicStop(ActionEvent event) {
+		musicStop();
+	}
+	
+	protected void musicStop() {
+		if (!mediaPlayer.getStatus().equals(Status.STOPPED)) {
+			mediaPlayer.stop();
+			sSongProgress.setValue(0);
+		}
+	}
+
+	
 }

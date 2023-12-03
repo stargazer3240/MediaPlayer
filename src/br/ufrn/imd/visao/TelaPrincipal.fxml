@@ -71,7 +71,7 @@
                      <HBox.margin>
                         <Insets left="225.0" />
                      </HBox.margin></Button>
-                  <Button fx:id="btnPlay" mnemonicParsing="false" onAction="#tocarMusica" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100;" text="Play" />
+                  <Button fx:id="btnPlay" mnemonicParsing="false" onAction="#musicPlay" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100;" text="Play" />
                   <Button fx:id="btnNext" mnemonicParsing="false" onAction="#musicNext" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 40;" text="&gt;&gt;" />
                   <Button fx:id="btnPause" mnemonicParsing="false" onAction="#musicPause" text="Pause" />
                   <Button fx:id="btnStop" mnemonicParsing="false" onAction="#musicStop" text="Stop" />
