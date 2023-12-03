@@ -1,17 +1,56 @@
 package br.ufrn.imd.controle;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import br.ufrn.imd.Main;
 import br.ufrn.imd.dao.DiretorioDao;
+import br.ufrn.imd.dao.MusicaDao;
 import br.ufrn.imd.dao.UsuarioDao;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaPlayer.Status;
 import javafx.stage.DirectoryChooser;
+import javafx.util.Duration;
 
 public class TelaPrincipalController {
+
+	protected Media media;
+	protected MediaPlayer mediaPlayer;
+	protected int songNumber;
+
+	@FXML
+	protected Button btnPause;
+
+	@FXML
+	protected Button btnStop;
+
+	@FXML
+	protected Label lblSongDuration;
+
+	@FXML
+	protected Slider sSongProgress;
+
+	@FXML
+	protected Slider sSongVolume;
+
 	@FXML
 	protected Button btnNext;
 
@@ -48,6 +87,7 @@ public class TelaPrincipalController {
 		UsuarioDao uDao = UsuarioDao.getInstance();
 		Integer id = uDao.identificarId();
 		dDao.adicionarDiretorio(id, selectedDirectory);
+		uDao.adicionarDiretorio(selectedDirectory);
 		listarDiretorios(selectedDirectory);
 	}
 
@@ -58,7 +98,140 @@ public class TelaPrincipalController {
 	}
 
 	@FXML
+	protected void atualizarSongs() {
+		if (!listFolders.getItems().isEmpty()) {
+			String caminho = listFolders.getSelectionModel().selectedItemProperty().get();
+			listarMusicasDiretorio(caminho);
+		}
+	}
+
+	protected void listarMusicasDiretorio(String caminho) {
+		MusicaDao mDao = MusicaDao.getInstance();
+		listSongs.getItems().clear();
+		try (DirectoryStream<Path> dir = Files.newDirectoryStream(Path.of(caminho), "*.mp3")) {
+			for (Path p : dir) {
+				listSongs.getItems().add(p.getFileName().toString());
+				mDao.adicionarMusica(p);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
 	protected void sair() {
 		System.exit(0);
 	}
+
+	@FXML
+	protected void tocarMusica() {
+		if (!listFolders.getItems().isEmpty()) {
+			String dir = listFolders.getSelectionModel().selectedItemProperty().get();
+			String musica = listSongs.getSelectionModel().getSelectedItem();
+			Path p = Path.of(dir, musica);
+			if (!musica.isBlank()) {
+				media = new Media(p.toUri().toString());
+				mediaPlayer = new MediaPlayer(media);
+				update();
+			}
+		}
+	}
+
+	protected void update() {
+		mediaPlayer.setAutoPlay(true);
+
+		mediaPlayer.currentTimeProperty().addListener(((observableValue, oldValue, newValue) -> {
+			sSongProgress.setValue(newValue.toSeconds());
+			int hour = (int) sSongProgress.getValue() / (60 * 60);
+			int min = ((int) sSongProgress.getValue() / (60)) - (hour * 60);
+			int sec = ((int) sSongProgress.getValue() / (1)) - (min * 60);
+			DecimalFormat formatter = new DecimalFormat("00");
+			String hourFormatString = formatter.format(hour);
+			String minFormatString = formatter.format(min);
+			String secFormatString = formatter.format(sec);
+			lblSongDuration.setText("Duration: " + hourFormatString + ":" + minFormatString + ":" + secFormatString);
+		}));
+
+		mediaPlayer.setOnReady(() -> {
+			mediaPlayer.setVolume(sSongVolume.getValue() * 0.01);
+			Duration totalDuration = media.getDuration();
+			sSongProgress.setMax(totalDuration.toSeconds());
+		});
+
+		sSongVolume.valueProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
+				mediaPlayer.setVolume(sSongVolume.getValue() * 0.01);
+			}
+		});
+
+//		mediaPlayer.setOnEndOfMedia(this::musicNext);
+	}
+
+	@FXML
+	protected void musicChangeProgress(MouseEvent event) {
+		if (mediaPlayer != null) {
+			mediaPlayer.seek(Duration.seconds(sSongProgress.getValue()));
+		}
+	}
+
+	@FXML
+	protected void musicChangeVolume(MouseEvent event) {
+		if (mediaPlayer != null) {
+			mediaPlayer.setVolume(sSongVolume.getValue() * 0.01);
+		}
+	}
+
+//	@FXML
+//	protected void musicNext() {
+//		if (songNumber < playlist.getMusicas().size() - 1) {
+//			songNumber++;
+//			mediaPlayer.stop();
+//			media = new Media(playlist.getMusicas().get(songNumber).getArquivo().toURI().toString());
+//			mediaPlayer = new MediaPlayer(media);
+//			update();
+//		} else {
+//			songNumber = 0;
+//			mediaPlayer.stop();
+//			media = new Media(playlist.getMusicas().get(songNumber).getArquivo().toURI().toString());
+//			mediaPlayer = new MediaPlayer(media);
+//			update();
+//		}
+//	}
+
+	@FXML
+	void musicPlay() {
+		mediaPlayer.getStatus();
+		if (!mediaPlayer.getStatus().equals(Status.PLAYING)) {
+			mediaPlayer.play();
+		} else if (!mediaPlayer.getStatus().equals(Status.PAUSED)) {
+			mediaPlayer.pause();
+		}
+	}
+//
+//	@FXML
+//	void musicPrevious(ActionEvent event) {
+//		if (songNumber > 0) {
+//			songNumber--;
+//			mediaPlayer.stop();
+//			media = new Media(playlist.getMusicas().get(songNumber).getArquivo().toURI().toString());
+//			mediaPlayer = new MediaPlayer(media);
+//			update();
+//		} else {
+//			songNumber = playlist.getMusicas().size() - 1;
+//			mediaPlayer.stop();
+//			media = new Media(playlist.getMusicas().get(songNumber).getArquivo().toURI().toString());
+//			mediaPlayer = new MediaPlayer(media);
+//			update();
+//		}
+//	}
+//
+//	@FXML
+//	void musicStop(ActionEvent event) {
+//		mediaPlayer.getStatus();
+//		if (!mediaPlayer.getStatus().equals(Status.STOPPED)) {
+//			mediaPlayer.stop();
+//			sSongProgress.setValue(0);
+//		}
+//	}
 }

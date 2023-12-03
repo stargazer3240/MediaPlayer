@@ -68,6 +68,17 @@ public class UsuarioDao {
 	}
 
 	public void adicionarDiretorio(File d) {
-		atual.adicionarDiretorio(d);
+		if (!checarDiretorio(d)) {
+			atual.adicionarDiretorio(d);
+		}
+	}
+
+	private boolean checarDiretorio(File teste) {
+		for (File d : atual.getDiretorios()) {
+			if (d.equals(teste)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
