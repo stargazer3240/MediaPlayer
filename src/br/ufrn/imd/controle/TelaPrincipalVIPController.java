@@ -7,11 +7,14 @@ import javafx.scene.control.MenuItem;
 
 public class TelaPrincipalVIPController extends TelaPrincipalController {
 	@FXML
-	private ListView<?> listPlaylists;
+	private ListView<String> listPlaylists;
 
 	@FXML
 	private MenuItem mItViewDirs;
 
 	@FXML
 	private MenuItem mItViewPlaylists;
+
+	@FXML
+	private MenuItem mItAdicionarPlaylist;
 }

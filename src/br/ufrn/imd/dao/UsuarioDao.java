@@ -62,10 +62,7 @@ public class UsuarioDao {
 		}
 	}
 
-	public void adicionarDiretorios() {
-		for (Usuario u : usuarios) {
-			DiretorioDao dDao = DiretorioDao.getInstance();
-			dDao.adicionarDiretorios(u.getId(), u.getDiretorios());
-		}
+	public Integer identificarId() {
+		return atual.getId();
 	}
 }

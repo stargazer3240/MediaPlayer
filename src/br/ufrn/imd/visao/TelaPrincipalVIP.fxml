@@ -2,12 +2,15 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
@@ -23,8 +26,12 @@
           </Menu>
           <Menu mnemonicParsing="false" text="View">
             <items>
-              <MenuItem fx:id="mItViewDirs" mnemonicParsing="false" text="Directory Songs" />
-                  <MenuItem fx:id="mItViewPlaylists" mnemonicParsing="false" text="Playlist Songs" />
+                  <RadioMenuItem fx:id="mItViewDirs" mnemonicParsing="false" selected="true" text="Directory Songs">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="View" />
+                     </toggleGroup>
+                  </RadioMenuItem>
+                  <RadioMenuItem fx:id="mItViewPlaylists" mnemonicParsing="false" text="Playlist Songs" toggleGroup="$View" />
             </items>
           </Menu>
         </menus>
@@ -36,7 +43,14 @@
                   <VBox spacing="5.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="25.0" text="Folders" />
-                        <ListView fx:id="listFolders" VBox.vgrow="ALWAYS" />
+                        <ListView fx:id="listFolders" VBox.vgrow="ALWAYS">
+                           <contextMenu>
+                              <ContextMenu>
+                                <items>
+                                  <MenuItem fx:id="mItAdicionarPasta" mnemonicParsing="false" text="Add Folder" />
+                                </items>
+                              </ContextMenu>
+                           </contextMenu></ListView>
                      </children>
                      <padding>
                         <Insets top="5.0" />
@@ -62,7 +76,14 @@
                               <Insets />
                            </VBox.margin>
                         </Label>
-                        <ListView fx:id="listPlaylists" VBox.vgrow="ALWAYS" />
+                        <ListView fx:id="listPlaylists" VBox.vgrow="ALWAYS">
+                           <contextMenu>
+                              <ContextMenu>
+                                <items>
+                                  <MenuItem fx:id="mItAdicionarPlaylist" mnemonicParsing="false" text="Add Playlist" />
+                                </items>
+                              </ContextMenu>
+                           </contextMenu></ListView>
                      </children>
                      <padding>
                         <Insets top="5.0" />

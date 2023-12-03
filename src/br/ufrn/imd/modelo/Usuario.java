@@ -1,12 +1,13 @@
 package br.ufrn.imd.modelo;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Usuario {
 	private Integer id;
 	private String login;
 	private String senha;
-	private ArrayList<Diretorio> diretorios = new ArrayList<>();
+	private ArrayList<File> diretorios = new ArrayList<>();
 
 	public Integer getId() {
 		return id;
@@ -32,15 +33,15 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-	public ArrayList<Diretorio> getDiretorios() {
+	public ArrayList<File> getDiretorios() {
 		return diretorios;
 	}
 
-	public void adicionarDiretorio(Diretorio d) {
+	public void adicionarDiretorio(File d) {
 		diretorios.add(d);
 	}
 
-	public void removerDiretorio(Diretorio d) {
+	public void removerDiretorio(File d) {
 		diretorios.remove(d);
 	}
 }
