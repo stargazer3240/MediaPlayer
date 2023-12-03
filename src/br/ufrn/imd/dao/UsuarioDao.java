@@ -1,5 +1,6 @@
 package br.ufrn.imd.dao;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import br.ufrn.imd.modelo.Usuario;
@@ -64,5 +65,9 @@ public class UsuarioDao {
 
 	public Integer identificarId() {
 		return atual.getId();
+	}
+
+	public void adicionarDiretorio(File d) {
+		atual.adicionarDiretorio(d);
 	}
 }

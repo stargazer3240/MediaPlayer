@@ -40,8 +40,4 @@ public class Usuario {
 	public void adicionarDiretorio(File d) {
 		diretorios.add(d);
 	}
-
-	public void removerDiretorio(File d) {
-		diretorios.remove(d);
-	}
 }

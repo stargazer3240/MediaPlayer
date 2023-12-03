@@ -11,21 +11,13 @@ public class DiretorioDao {
 	private static DiretorioDao dDao;
 	private ArrayList<Pair> diretorios = new ArrayList<>();
 
-	public class Pair {
+	private class Pair {
 		private final Integer id;
 		private final File diretorio;
 
 		public Pair(Integer id, File dir) {
 			this.id = id;
 			this.diretorio = dir;
-		}
-
-		public Integer getId() {
-			return id;
-		}
-
-		public File getDiretorio() {
-			return diretorio;
 		}
 
 		@Override
@@ -71,7 +63,7 @@ public class DiretorioDao {
 	}
 
 	public void salvarDiretorios() {
-		criarDirData();
+		criarDiretorioData();
 		Path dest = Path.of("./data/diretorios.txt");
 		ArrayList<String> output = formarOutput();
 		try {
@@ -81,7 +73,7 @@ public class DiretorioDao {
 		}
 	}
 
-	private void criarDirData() {
+	private void criarDiretorioData() {
 		File novoDir = new File("./data");
 		if (!novoDir.exists()) {
 			novoDir.mkdir();
@@ -95,10 +87,4 @@ public class DiretorioDao {
 		}
 		return output;
 	}
-
-	public ArrayList<Pair> getDiretorios() {
-		return diretorios;
-	}
-	
-	
 }

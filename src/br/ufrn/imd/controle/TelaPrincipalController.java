@@ -1,11 +1,9 @@
 package br.ufrn.imd.controle;
 
 import java.io.File;
-import java.io.IOException;
 
 import br.ufrn.imd.Main;
 import br.ufrn.imd.dao.DiretorioDao;
-import br.ufrn.imd.dao.DiretorioDao.Pair;
 import br.ufrn.imd.dao.UsuarioDao;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -41,7 +39,7 @@ public class TelaPrincipalController {
 	protected DirectoryChooser directoryChooser = new DirectoryChooser();
 
 	@FXML
-	void adicionarPasta() {
+	protected void adicionarDiretorio() {
 		File selectedDirectory = directoryChooser.showDialog(Main.getStage());
 		if (selectedDirectory != null) {
 			selectedDirectory.getAbsolutePath();
@@ -50,16 +48,17 @@ public class TelaPrincipalController {
 		UsuarioDao uDao = UsuarioDao.getInstance();
 		Integer id = uDao.identificarId();
 		dDao.adicionarDiretorio(id, selectedDirectory);
-		
-		listFolders.getItems().clear();
-		for(Pair it : dDao.getDiretorios())
-		{
-			listFolders.getItems().add(it.getDiretorio().toString());
+		listarDiretorios(selectedDirectory);
+	}
+
+	protected void listarDiretorios(File d) {
+		if (!listFolders.getItems().contains(d.getAbsolutePath())) {
+			listFolders.getItems().add(d.getAbsolutePath());
 		}
 	}
 
 	@FXML
-	void sair() {
+	protected void sair() {
 		System.exit(0);
 	}
 }

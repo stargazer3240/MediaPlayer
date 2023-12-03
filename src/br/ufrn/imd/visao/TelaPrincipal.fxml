@@ -35,7 +35,7 @@
                            <contextMenu>
                               <ContextMenu>
                                 <items>
-                                  <MenuItem fx:id="mItAdicionarPasta" mnemonicParsing="false" onAction="#adicionarPasta" text="Add Folder" />
+                                  <MenuItem fx:id="mItAdicionarPasta" mnemonicParsing="false" onAction="#adicionarDiretorio" text="Add Folder" />
                                 </items>
                               </ContextMenu>
                            </contextMenu></ListView>
