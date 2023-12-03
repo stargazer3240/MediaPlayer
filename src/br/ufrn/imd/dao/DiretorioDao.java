@@ -11,13 +11,21 @@ public class DiretorioDao {
 	private static DiretorioDao dDao;
 	private ArrayList<Pair> diretorios = new ArrayList<>();
 
-	private class Pair {
+	public class Pair {
 		private final Integer id;
 		private final File diretorio;
 
 		public Pair(Integer id, File dir) {
 			this.id = id;
 			this.diretorio = dir;
+		}
+
+		public Integer getId() {
+			return id;
+		}
+
+		public File getDiretorio() {
+			return diretorio;
 		}
 
 		@Override
@@ -87,4 +95,10 @@ public class DiretorioDao {
 		}
 		return output;
 	}
+
+	public ArrayList<Pair> getDiretorios() {
+		return diretorios;
+	}
+	
+	
 }

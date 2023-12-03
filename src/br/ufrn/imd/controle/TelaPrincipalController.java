@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import br.ufrn.imd.Main;
 import br.ufrn.imd.dao.DiretorioDao;
+import br.ufrn.imd.dao.DiretorioDao.Pair;
 import br.ufrn.imd.dao.UsuarioDao;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -49,6 +50,12 @@ public class TelaPrincipalController {
 		UsuarioDao uDao = UsuarioDao.getInstance();
 		Integer id = uDao.identificarId();
 		dDao.adicionarDiretorio(id, selectedDirectory);
+		
+		listFolders.getItems().clear();
+		for(Pair it : dDao.getDiretorios())
+		{
+			listFolders.getItems().add(it.getDiretorio().toString());
+		}
 	}
 
 	@FXML
