@@ -40,7 +40,7 @@ public class TelaPrincipalController {
 	protected DirectoryChooser directoryChooser = new DirectoryChooser();
 
 	@FXML
-	void adicionarPasta() throws IOException {
+	void adicionarPasta() {
 		File selectedDirectory = directoryChooser.showDialog(Main.getStage());
 		if (selectedDirectory != null) {
 			selectedDirectory.getAbsolutePath();
