@@ -1,6 +1,7 @@
 package br.ufrn.imd.controle;
 
 import java.io.File;
+import java.io.IOException;
 
 import br.ufrn.imd.Main;
 import br.ufrn.imd.dao.DiretorioDao;
@@ -39,7 +40,7 @@ public class TelaPrincipalController {
 	protected DirectoryChooser directoryChooser = new DirectoryChooser();
 
 	@FXML
-	void adicionarPasta() {
+	void adicionarPasta() throws IOException {
 		File selectedDirectory = directoryChooser.showDialog(Main.getStage());
 		if (selectedDirectory != null) {
 			selectedDirectory.getAbsolutePath();

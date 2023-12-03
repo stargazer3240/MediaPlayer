@@ -19,12 +19,13 @@ public class DiretorioDao {
 		return dDao;
 	}
 
-	public void adicionarDiretorio(Integer id, File d) {
+	public void adicionarDiretorio(Integer id, File d) throws IOException {
 		diretorios.put(id, d);
+		salvarDiretorios();
 	}
 
 	public void salvarDiretorios() throws IOException {
-		Path dest = Path.of("../../../../../data/diretorios.txt");
+		Path dest = Path.of("./data/diretorios.txt");
 		for (Entry<Integer, File> e : diretorios.entrySet()) {
 			String line = e.getKey() + " " + e.getValue().getAbsolutePath();
 			Files.writeString(dest, line);
