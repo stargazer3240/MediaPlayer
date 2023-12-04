@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import br.ufrn.imd.Main;
 import br.ufrn.imd.dao.UsuarioDao;
+import br.ufrn.imd.dao.UsuarioDao.TipoChecagem;
 import br.ufrn.imd.dao.UsuarioDao.TipoUsuario;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -57,7 +58,7 @@ public class TelaCadastroController {
 			gerarFeedback(TipoFeedback.SENHA_INVALIDA);
 			return;
 		}
-		boolean existente = uDao.checarCredenciais(nome, senha);
+		boolean existente = uDao.checarCredenciais(nome, senha, TipoChecagem.CADASTRO);
 		if (!existente) {
 			cadastrarUsuario(nome, senha);
 		} else {

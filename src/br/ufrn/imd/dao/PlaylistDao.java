@@ -60,7 +60,6 @@ public class PlaylistDao {
 				e.printStackTrace();
 			}
 		}
-
 	}
 
 	private ArrayList<String> formarOutput(Playlist p) {
@@ -69,5 +68,16 @@ public class PlaylistDao {
 			output.add(f.toURI().toString());
 		}
 		return output;
+	}
+
+	public ArrayList<File> getMusicFiles(String nome) {
+		ArrayList<File> files = new ArrayList<>();
+		for (Playlist p : playlists) {
+			if (p.getNome().equals(nome)) {
+				files = p.getFiles();
+				break;
+			}
+		}
+		return files;
 	}
 }

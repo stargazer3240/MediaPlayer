@@ -10,11 +10,13 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioMenuItem?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.controle.TelaPrincipalVIPController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.controle.TelaPrincipalVIPController">
    <children>
       <MenuBar>
         <menus>
@@ -43,7 +45,7 @@
                   <VBox spacing="5.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="25.0" text="Folders" />
-                        <ListView fx:id="listFolders" onMouseClicked="#atualizarSongs" VBox.vgrow="ALWAYS">
+                        <ListView fx:id="listFolders" onMouseClicked="#atualizarSongsDiretorio" VBox.vgrow="ALWAYS">
                            <contextMenu>
                               <ContextMenu>
                                 <items>
@@ -72,16 +74,17 @@
                   </VBox>
                   <VBox spacing="5.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="25.0" text="Playlists">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </Label>
+                        <StackPane prefHeight="25.0">
+                           <children>
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="25.0" text="Playlists" />
+                              <TextField fx:id="txtPlaylistName" onKeyPressed="#criarPlaylist" promptText="Playlist name" visible="false" />
+                           </children>
+                        </StackPane>
                         <ListView fx:id="listPlaylists" VBox.vgrow="ALWAYS">
                            <contextMenu>
                               <ContextMenu>
                                 <items>
-                                  <MenuItem fx:id="mItAdicionarPlaylist" mnemonicParsing="false" text="Add Playlist" />
+                                  <MenuItem fx:id="mItAdicionarPlaylist" mnemonicParsing="false" onAction="#mostrarCampoPlaylist" text="Add Playlist" />
                                 </items>
                               </ContextMenu>
                            </contextMenu>

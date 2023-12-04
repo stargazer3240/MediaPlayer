@@ -19,6 +19,10 @@ public class UsuarioDao {
 		COMUM, VIP, NULO
 	}
 
+	public enum TipoChecagem {
+		LOGIN, CADASTRO
+	}
+
 	public static UsuarioDao getInstance() {
 		if (uDao == null) {
 			uDao = new UsuarioDao();
@@ -81,10 +85,12 @@ public class UsuarioDao {
 		}
 	}
 
-	public boolean checarCredenciais(String login, String senha) {
+	public boolean checarCredenciais(String login, String senha, TipoChecagem t) {
 		for (Usuario u : usuarios) {
 			if (u.getLogin().equals(login) && u.getSenha().equals(senha)) {
-				atual = u;
+				if (t.equals(TipoChecagem.LOGIN)) {
+					atual = u;
+				}
 				return true;
 			}
 		}

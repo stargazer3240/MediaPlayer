@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import br.ufrn.imd.Main;
 import br.ufrn.imd.dao.UsuarioDao;
+import br.ufrn.imd.dao.UsuarioDao.TipoChecagem;
 import br.ufrn.imd.dao.UsuarioDao.TipoUsuario;
 import javafx.fxml.FXML;
 
@@ -34,7 +35,7 @@ public class TelaLoginController {
 		String login = txtUsuario.getText();
 		String senha = txtSenha.getText();
 		UsuarioDao uDao = UsuarioDao.getInstance();
-		boolean validado = uDao.checarCredenciais(login, senha);
+		boolean validado = uDao.checarCredenciais(login, senha, TipoChecagem.LOGIN);
 		if (validado) {
 			TipoUsuario tipo = uDao.identificarTipo();
 			if (tipo == TipoUsuario.COMUM) {

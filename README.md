@@ -17,6 +17,8 @@ Um tocador de MP3 utilizando capaz de reproduzir arquivos de áudio.
 
 ## Uso
 
+- Nem o login e nem a senha podem ter espaços ou o carácter `|`.
+- A tela principal irá mudar se você escolher VIP ou Comum. O usuário VIP possui uma aba para playlists.
 - Após logar, clique com o botão direito na caixa embaixo de Directories e selecione
 a pasta com as músicas `.mp3` desejadas.
 - A lista de músicas irá aparecer na direita quando uma das pastas for selecionada
@@ -25,7 +27,8 @@ com o clique esquerdo.
 
 ## Limitações
 
-- Playlists não foram implementadas.
+- É possível criar playlists, mas não tem como adicionar músicas nelas, 
+tornando-as irrelevantes.
 - Não foi implementada a recuperação de dados a partir de arquivos.
 
 ## Autores
