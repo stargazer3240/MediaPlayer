@@ -12,7 +12,6 @@ import br.ufrn.imd.dao.MusicaDao;
 import br.ufrn.imd.dao.UsuarioDao;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -74,17 +73,8 @@ public class TelaPrincipalController {
 
 	protected DirectoryChooser directoryChooser = new DirectoryChooser();
 
-//	public TelaPrincipalController() {
-//		DiretorioDao dDao = DiretorioDao.getInstance();
-//		UsuarioDao uDao = UsuarioDao.getInstance();
-//		MusicaDao mDao = MusicaDao.getInstance();
-//		dDao.recuperarDiretorios();
-//		uDao.recuperarUsuarios();
-//		mDao.recuperarMusicas();
-//	}
-
 	@FXML
-	protected void fazerLogout(ActionEvent event) throws IOException {
+	protected void fazerLogout() throws IOException {
 		if (mediaPlayer != null) {
 			musicStop();
 			mediaPlayer.dispose();
@@ -107,10 +97,10 @@ public class TelaPrincipalController {
 		Integer id = uDao.identificarId();
 		dDao.adicionarDiretorio(id, selectedDirectory);
 		uDao.adicionarDiretorio(selectedDirectory);
-		listarDiretorios(selectedDirectory);
+		listarDiretorio(selectedDirectory);
 	}
 
-	protected void listarDiretorios(File d) {
+	protected void listarDiretorio(File d) {
 		if (!listFolders.getItems().contains(d.getAbsolutePath())) {
 			listFolders.getItems().add(d.getAbsolutePath());
 		}
@@ -223,7 +213,7 @@ public class TelaPrincipalController {
 	}
 
 	@FXML
-	protected void musicPlay(ActionEvent event) {
+	protected void musicPlay() {
 		if (mediaPlayer == null && (!listFolders.getItems().isEmpty())) {
 			String dir = listFolders.getSelectionModel().selectedItemProperty().get();
 			String musica = listSongs.getSelectionModel().getSelectedItem();

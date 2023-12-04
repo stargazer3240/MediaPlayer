@@ -84,8 +84,4 @@ public class DiretorioDao {
 		}
 		return output;
 	}
-
-	public void recuperarDiretorios() {
-
-	}
 }

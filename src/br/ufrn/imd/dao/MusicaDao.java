@@ -53,9 +53,6 @@ public class MusicaDao {
 		return output;
 	}
 
-	public void recuperarMusicas() {
-	}
-
 	private boolean checarMusica(Musica teste) {
 		for (Musica m : musicas) {
 			if (m.getNome().equals(teste.getNome())

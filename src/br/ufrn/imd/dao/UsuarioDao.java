@@ -120,8 +120,4 @@ public class UsuarioDao {
 		}
 		return false;
 	}
-
-	public void recuperarUsuarios() {
-
-	}
 }
