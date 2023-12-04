@@ -45,6 +45,11 @@ public class DiretorioDao {
 		return dDao;
 	}
 
+	public void limparDiretorios() {
+		salvarDiretorios();
+		diretorios.clear();
+	}
+
 	public void adicionarDiretorio(Integer id, File d) {
 		Pair novo = new Pair(id, d);
 		if (!checarDiretorio(novo)) {
@@ -62,7 +67,7 @@ public class DiretorioDao {
 		return false;
 	}
 
-	public void salvarDiretorios() {
+	private void salvarDiretorios() {
 		criarDiretorioData();
 		Path dest = Path.of("./data/diretorios.txt");
 		ArrayList<String> output = formarOutput();

@@ -13,7 +13,7 @@ public class UsuarioDao {
 	private static Integer ultimoId = 0;
 
 	public enum TipoUsuario {
-		COMUM, VIP
+		COMUM, VIP, NULO
 	}
 
 	public static UsuarioDao getInstance() {
@@ -23,17 +23,23 @@ public class UsuarioDao {
 		return uDao;
 	}
 
+	public void limparAtual() {
+		atual = null;
+	}
+
 	public void criarUsuario(String nome, String senha, TipoUsuario t) {
-		Usuario u;
+		Usuario u = null;
 		if (t.equals(TipoUsuario.VIP)) {
 			u = new UsuarioVIP();
-		} else {
+		} else if (t.equals(TipoUsuario.COMUM)) {
 			u = new Usuario();
 		}
-		u.setId(recuperarId());
-		u.setLogin(nome);
-		u.setSenha(senha);
-		adicionarUsuario(u);
+		if (u != null) {
+			u.setId(recuperarId());
+			u.setLogin(nome);
+			u.setSenha(senha);
+			adicionarUsuario(u);
+		}
 	}
 
 	private static Integer recuperarId() {
@@ -56,11 +62,14 @@ public class UsuarioDao {
 	}
 
 	public TipoUsuario identificarTipo() {
-		if (atual instanceof UsuarioVIP) {
-			return TipoUsuario.VIP;
-		} else {
-			return TipoUsuario.COMUM;
+		if (atual != null) {
+			if (atual instanceof UsuarioVIP) {
+				return TipoUsuario.VIP;
+			} else {
+				return TipoUsuario.COMUM;
+			}
 		}
+		return TipoUsuario.NULO;
 	}
 
 	public Integer identificarId() {

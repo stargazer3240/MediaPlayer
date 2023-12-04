@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import br.ufrn.imd.Main;
 import br.ufrn.imd.dao.UsuarioDao;
+import br.ufrn.imd.dao.UsuarioDao.TipoUsuario;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -58,9 +59,9 @@ public class TelaCadastroController {
 
 	private void cadastrarUsuario(String nome, String senha) {
 		UsuarioDao uDao = UsuarioDao.getInstance();
-		UsuarioDao.TipoUsuario tipo = UsuarioDao.TipoUsuario.COMUM;
+		TipoUsuario tipo = TipoUsuario.COMUM;
 		if (btnVIP.isSelected()) {
-			tipo = UsuarioDao.TipoUsuario.VIP;
+			tipo = TipoUsuario.VIP;
 		}
 		if (!nome.isBlank() && !senha.isBlank()) {
 			uDao.criarUsuario(nome, senha, tipo);

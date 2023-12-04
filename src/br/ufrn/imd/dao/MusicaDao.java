@@ -36,12 +36,6 @@ public class MusicaDao {
 	public ArrayList<Musica> getMusicas() {
 		return musicas;
 	}
-	
-//	public File encontrarMusica(String musica) {
-//		for(Musica m: musicas) {
-//			if()
-//		}
-//	}
 
 	private boolean checarMusica(Musica teste) {
 		for (Musica m : musicas) {

@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import br.ufrn.imd.Main;
 import br.ufrn.imd.dao.UsuarioDao;
-
+import br.ufrn.imd.dao.UsuarioDao.TipoUsuario;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
@@ -36,10 +36,10 @@ public class TelaLoginController {
 		UsuarioDao uDao = UsuarioDao.getInstance();
 		boolean validado = uDao.checarCredenciais(login, senha);
 		if (validado) {
-			UsuarioDao.TipoUsuario tipo = uDao.identificarTipo();
-			if (tipo == UsuarioDao.TipoUsuario.COMUM) {
+			TipoUsuario tipo = uDao.identificarTipo();
+			if (tipo == TipoUsuario.COMUM) {
 				abrirTela("TelaPrincipal");
-			} else {
+			} else if (tipo == TipoUsuario.VIP) {
 				abrirTela("TelaPrincipalVIP");
 			}
 		} else {
