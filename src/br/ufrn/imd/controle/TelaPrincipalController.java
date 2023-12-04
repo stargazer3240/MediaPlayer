@@ -2,14 +2,10 @@ package br.ufrn.imd.controle;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-
 import br.ufrn.imd.Main;
 import br.ufrn.imd.dao.DiretorioDao;
 import br.ufrn.imd.dao.MusicaDao;
@@ -18,7 +14,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -81,6 +76,15 @@ public class TelaPrincipalController{
 
 	protected DirectoryChooser directoryChooser = new DirectoryChooser();
 
+	@FXML
+    protected void fazerLogout(ActionEvent event) throws IOException {
+		if(mediaPlayer != null) {
+			musicStop();
+			mediaPlayer.dispose();
+		}
+		Main.trocarTela("TelaLogin");
+    }
+	
 	@FXML
 	protected void adicionarDiretorio() {
 		File selectedDirectory = directoryChooser.showDialog(Main.getStage());
@@ -227,7 +231,6 @@ public class TelaPrincipalController{
 					mediaPlayer = new MediaPlayer(media);
 					sSongProgress.setValue(0);
 					songNumber = listSongs.getSelectionModel().getSelectedIndex();
-					System.out.println(songNumber);
 					mediaPlayer.play();
 					listSongs.getSelectionModel().select(songNumber);
 					update();
@@ -246,7 +249,6 @@ public class TelaPrincipalController{
 					mediaPlayer = new MediaPlayer(media);
 					sSongProgress.setValue(0);
 					songNumber = listSongs.getSelectionModel().getSelectedIndex();
-					System.out.println(songNumber);
 					mediaPlayer.play();
 					update();
 					return;
@@ -290,8 +292,6 @@ public class TelaPrincipalController{
 				}
 				else {
 					songNumber = listSongs.getItems().size() - 1;
-					System.out.println(listSongs.getItems().size());
-					System.out.println("prev: " + songNumber);
 					String dir = listFolders.getSelectionModel().selectedItemProperty().get();
 					String musica = listSongs.getItems().get(songNumber);
 					Path p = Path.of(dir, musica);

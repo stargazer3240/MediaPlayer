@@ -18,7 +18,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="Account">
                <items>
-                  <MenuItem fx:id="mItLogout" mnemonicParsing="false" text="Logout" />
+                  <MenuItem fx:id="mItLogout" mnemonicParsing="false" onAction="#fazerLogout" text="Logout" />
                   <MenuItem fx:id="mItQuit" mnemonicParsing="false" onAction="#sair" text="Quit" />
                </items>
           </Menu>
