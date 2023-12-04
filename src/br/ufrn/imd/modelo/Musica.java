@@ -21,4 +21,9 @@ public class Musica {
 	public void setArquivo(File arquivo) {
 		this.arquivo = arquivo;
 	}
+
+	@Override
+	public String toString() {
+		return nome + " " + arquivo.toURI();
+	}
 }

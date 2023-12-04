@@ -12,17 +12,17 @@ public class DiretorioDao {
 	private ArrayList<Pair> diretorios = new ArrayList<>();
 
 	private class Pair {
-		private final Integer id;
+		private final Integer userId;
 		private final File diretorio;
 
 		public Pair(Integer id, File dir) {
-			this.id = id;
+			this.userId = id;
 			this.diretorio = dir;
 		}
 
 		@Override
 		public String toString() {
-			return id + " " + diretorio.getAbsolutePath();
+			return userId + " " + diretorio.getAbsolutePath();
 		}
 
 		@Override
@@ -34,7 +34,7 @@ public class DiretorioDao {
 				return false;
 			}
 			Pair c = (Pair) o;
-			return id.equals(c.id) && diretorio.getAbsolutePath().equals(c.diretorio.getAbsolutePath());
+			return userId.equals(c.userId) && diretorio.getAbsolutePath().equals(c.diretorio.getAbsolutePath());
 		}
 	}
 
@@ -83,5 +83,9 @@ public class DiretorioDao {
 			output.add(p.toString());
 		}
 		return output;
+	}
+
+	public void recuperarDiretorios() {
+
 	}
 }

@@ -1,6 +1,9 @@
 package br.ufrn.imd.dao;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 import br.ufrn.imd.modelo.Usuario;
@@ -54,6 +57,21 @@ public class UsuarioDao {
 
 	private void salvarUsuarios() {
 		criarDiretorioData();
+		Path dest = Path.of("./data/usuarios.txt");
+		ArrayList<String> output = formarOutput();
+		try {
+			Files.write(dest, output);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private ArrayList<String> formarOutput() {
+		ArrayList<String> output = new ArrayList<>();
+		for (Usuario u : usuarios) {
+			output.add(u.toString());
+		}
+		return output;
 	}
 
 	private void criarDiretorioData() {
@@ -101,5 +119,9 @@ public class UsuarioDao {
 			}
 		}
 		return false;
+	}
+
+	public void recuperarUsuarios() {
+
 	}
 }

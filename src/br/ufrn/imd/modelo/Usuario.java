@@ -40,4 +40,9 @@ public class Usuario {
 	public void adicionarDiretorio(File d) {
 		diretorios.add(d);
 	}
+
+	@Override
+	public String toString() {
+		return id + " " + login + " " + senha;
+	}
 }

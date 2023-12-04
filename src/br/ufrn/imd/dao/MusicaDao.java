@@ -1,6 +1,8 @@
 package br.ufrn.imd.dao;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
@@ -30,11 +32,28 @@ public class MusicaDao {
 		} catch (NullPointerException e) {
 			System.out.println("File not found!");
 		}
-
+		salvarMusicas();
 	}
 
-	public ArrayList<Musica> getMusicas() {
-		return musicas;
+	private void salvarMusicas() {
+		Path dest = Path.of("./data/musicas.txt");
+		ArrayList<String> output = formarOutput();
+		try {
+			Files.write(dest, output);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private ArrayList<String> formarOutput() {
+		ArrayList<String> output = new ArrayList<>();
+		for (Musica m : musicas) {
+			output.add(m.toString());
+		}
+		return output;
+	}
+
+	public void recuperarMusicas() {
 	}
 
 	private boolean checarMusica(Musica teste) {

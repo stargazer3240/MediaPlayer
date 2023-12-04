@@ -74,6 +74,15 @@ public class TelaPrincipalController {
 
 	protected DirectoryChooser directoryChooser = new DirectoryChooser();
 
+//	public TelaPrincipalController() {
+//		DiretorioDao dDao = DiretorioDao.getInstance();
+//		UsuarioDao uDao = UsuarioDao.getInstance();
+//		MusicaDao mDao = MusicaDao.getInstance();
+//		dDao.recuperarDiretorios();
+//		uDao.recuperarUsuarios();
+//		mDao.recuperarMusicas();
+//	}
+
 	@FXML
 	protected void fazerLogout(ActionEvent event) throws IOException {
 		if (mediaPlayer != null) {
