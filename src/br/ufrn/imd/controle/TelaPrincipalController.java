@@ -75,6 +75,9 @@ public class TelaPrincipalController{
 
 	@FXML
 	protected MenuItem mItAdicionarPasta;
+	
+	@FXML
+	protected Label lblSong;
 
 	protected DirectoryChooser directoryChooser = new DirectoryChooser();
 
@@ -126,7 +129,7 @@ public class TelaPrincipalController{
 
 	protected void update() {
 		mediaPlayer.setAutoPlay(true);
-
+		
 		mediaPlayer.currentTimeProperty().addListener(((observableValue, oldValue, newValue) -> {
 			sSongProgress.setValue(newValue.toSeconds());
 			int hour = (int) sSongProgress.getValue() / (60 * 60);
@@ -143,6 +146,7 @@ public class TelaPrincipalController{
 			mediaPlayer.setVolume(sSongVolume.getValue() * 0.01);
 			Duration totalDuration = media.getDuration();
 			sSongProgress.setMax(totalDuration.toSeconds());
+			lblSong.setText(listSongs.getItems().get(songNumber).toString());
 		});
 
 		sSongVolume.valueProperty().addListener(new ChangeListener<Number>() {
@@ -189,6 +193,7 @@ public class TelaPrincipalController{
 						media = new Media(p.toUri().toString());
 						mediaPlayer = new MediaPlayer(media);
 						sSongProgress.setValue(0);
+						listSongs.getSelectionModel().select(songNumber);
 						update();
 					}
 				}
@@ -202,6 +207,7 @@ public class TelaPrincipalController{
 						media = new Media(p.toUri().toString());
 						mediaPlayer = new MediaPlayer(media);
 						sSongProgress.setValue(0);
+						listSongs.getSelectionModel().select(songNumber);
 						update();
 					}
 				}
@@ -210,8 +216,7 @@ public class TelaPrincipalController{
 	}
 
 	@FXML
-	void musicPlay(ActionEvent event) {
-		
+	protected void musicPlay(ActionEvent event) {
 		if(mediaPlayer == null) {
 			if (!listFolders.getItems().isEmpty()) {
 				String dir = listFolders.getSelectionModel().selectedItemProperty().get();
@@ -224,12 +229,13 @@ public class TelaPrincipalController{
 					songNumber = listSongs.getSelectionModel().getSelectedIndex();
 					System.out.println(songNumber);
 					mediaPlayer.play();
+					listSongs.getSelectionModel().select(songNumber);
 					update();
+					return;
 				}
 			}
 		}
-		
-		if (mediaPlayer.getStatus().equals(Status.PLAYING)){
+		if (mediaPlayer.getStatus().equals(Status.PLAYING) && listSongs.getSelectionModel().getSelectedIndex() != songNumber){
 			musicStop();
 			if (!listFolders.getItems().isEmpty()) {
 				String dir = listFolders.getSelectionModel().selectedItemProperty().get();
@@ -243,48 +249,29 @@ public class TelaPrincipalController{
 					System.out.println(songNumber);
 					mediaPlayer.play();
 					update();
+					return;
 				}
 			}
 		}
-		
-		
-		
-//		if (mediaPlayer != null || !mediaPlayer.getStatus().equals(Status.PLAYING)) {
-//			mediaPlayer.play();
-//		} else if (!mediaPlayer.getStatus().equals(Status.PAUSED)) {
-//			mediaPlayer.pause();
-//		}
+
+		mediaPlayer.play();
+
 	}
 	
 	@FXML
-	void musicPause(ActionEvent event) {
-		
+	protected void musicPause(ActionEvent event) {
+		if(mediaPlayer != null || !mediaPlayer.getStatus().equals(Status.PAUSED)) {
+			listSongs.getSelectionModel().select(songNumber);
+			mediaPlayer.pause();
+    	}
 	}
 
 	@FXML
-	void musicPrevious(ActionEvent event) {
+	protected void musicPrevious(ActionEvent event) {
 		musicPrevious();
 	}
 	
 	protected void musicPrevious() {
-//		if(mediaPlayer != null) {
-//			if (!listFolders.getItems().isEmpty()) {
-//				musicStop();
-//				
-//				
-//				songNumber--;
-//				String dir = listFolders.getSelectionModel().selectedItemProperty().get();
-//				String musica = listSongs.getItems().get(songNumber);
-//				Path p = Path.of(dir, musica);
-//				if (!musica.isBlank()) {
-//					media = new Media(p.toUri().toString());
-//					mediaPlayer = new MediaPlayer(media);
-//					sSongProgress.setValue(0);
-//					update();
-//				}
-//			}
-//		}
-		
 		if(mediaPlayer != null) {
 			if (!listFolders.getItems().isEmpty()) {
 				musicStop();
@@ -297,6 +284,7 @@ public class TelaPrincipalController{
 						media = new Media(p.toUri().toString());
 						mediaPlayer = new MediaPlayer(media);
 						sSongProgress.setValue(0);
+						listSongs.getSelectionModel().select(songNumber);
 						update();
 					}
 				}
@@ -311,6 +299,7 @@ public class TelaPrincipalController{
 						media = new Media(p.toUri().toString());
 						mediaPlayer = new MediaPlayer(media);
 						sSongProgress.setValue(0);
+						listSongs.getSelectionModel().select(songNumber);
 						update();
 					}
 				}
@@ -319,7 +308,7 @@ public class TelaPrincipalController{
 	}
 
 	@FXML
-	void musicStop(ActionEvent event) {
+	protected void musicStop(ActionEvent event) {
 		musicStop();
 	}
 	
