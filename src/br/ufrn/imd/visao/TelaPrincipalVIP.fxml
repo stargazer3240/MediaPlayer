@@ -8,13 +8,13 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.controle.TelaPrincipalVIPController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrn.imd.controle.TelaPrincipalVIPController">
    <children>
       <MenuBar>
         <menus>
@@ -47,10 +47,11 @@
                            <contextMenu>
                               <ContextMenu>
                                 <items>
-                                  <MenuItem fx:id="mItAdicionarPasta" mnemonicParsing="false" text="Add Folder" />
+                                  <MenuItem fx:id="mItAdicionarPasta" mnemonicParsing="false" onAction="#adicionarDiretorio" text="Add Folder" />
                                 </items>
                               </ContextMenu>
-                           </contextMenu></ListView>
+                           </contextMenu>
+                        </ListView>
                      </children>
                      <padding>
                         <Insets top="5.0" />
@@ -83,7 +84,8 @@
                                   <MenuItem fx:id="mItAdicionarPlaylist" mnemonicParsing="false" text="Add Playlist" />
                                 </items>
                               </ContextMenu>
-                           </contextMenu></ListView>
+                           </contextMenu>
+                        </ListView>
                      </children>
                      <padding>
                         <Insets top="5.0" />
@@ -91,12 +93,28 @@
                   </VBox>
                </children>
             </HBox>
-            <ProgressBar maxWidth="1.7976931348623157E308" prefHeight="10.0" progress="0.0" />
+            <HBox prefHeight="23.0" prefWidth="1270.0">
+               <children>
+                  <Slider fx:id="sSongProgress" onMouseDragged="#musicChangeProgress" prefHeight="14.0" prefWidth="1235.0" />
+                  <Label fx:id="lblSongDuration" prefHeight="17.0" prefWidth="178.0" text="Duration 00:00:00" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="20.0" prefWidth="1270.0">
+               <children>
+                  <Label fx:id="lblSong" />
+               </children>
+            </HBox>
             <HBox alignment="CENTER" spacing="2.0">
                <children>
-                  <Button fx:id="btnPrevious" mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 40;" text="&lt;&lt;" />
-                  <Button fx:id="btnPlay" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100;" text="Play" />
-                  <Button fx:id="btnNext" mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 40;" text="&gt;&gt;" />
+                  <Button fx:id="btnPrevious" mnemonicParsing="false" onAction="#musicPrevious" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 40;" text="&lt;&lt;">
+                     <HBox.margin>
+                        <Insets left="225.0" />
+                     </HBox.margin></Button>
+                  <Button fx:id="btnPlay" mnemonicParsing="false" onAction="#musicPlay" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100;" text="Play" />
+                  <Button fx:id="btnNext" mnemonicParsing="false" onAction="#musicNext" prefHeight="30.0" prefWidth="40.0" style="-fx-background-radius: 40;" text="&gt;&gt;" />
+                  <Button fx:id="btnPause" mnemonicParsing="false" onAction="#musicPause" text="Pause" />
+                  <Button fx:id="btnStop" mnemonicParsing="false" onAction="#musicStop" text="Stop" />
+                  <Slider fx:id="sSongVolume" onMouseDragged="#musicChangeVolume" />
                </children>
                <padding>
                   <Insets bottom="5.0" />
