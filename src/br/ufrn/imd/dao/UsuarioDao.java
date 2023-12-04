@@ -49,6 +49,18 @@ public class UsuarioDao {
 
 	private void adicionarUsuario(Usuario u) {
 		usuarios.add(u);
+		salvarUsuarios();
+	}
+
+	private void salvarUsuarios() {
+		criarDiretorioData();
+	}
+
+	private void criarDiretorioData() {
+		File novoDir = new File("./data");
+		if (!novoDir.exists()) {
+			novoDir.mkdir();
+		}
 	}
 
 	public boolean checarCredenciais(String login, String senha) {

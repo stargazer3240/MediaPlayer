@@ -68,20 +68,12 @@ public class DiretorioDao {
 	}
 
 	private void salvarDiretorios() {
-		criarDiretorioData();
 		Path dest = Path.of("./data/diretorios.txt");
 		ArrayList<String> output = formarOutput();
 		try {
 			Files.write(dest, output);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-	}
-
-	private void criarDiretorioData() {
-		File novoDir = new File("./data");
-		if (!novoDir.exists()) {
-			novoDir.mkdir();
 		}
 	}
 

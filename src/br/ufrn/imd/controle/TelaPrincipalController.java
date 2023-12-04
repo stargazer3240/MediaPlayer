@@ -180,30 +180,77 @@ public class TelaPrincipalController {
 	}
 
 	@FXML
-	protected void musicPlay() {
+	protected void musicNext() {
+		if (mediaPlayer != null && (!listFolders.getItems().isEmpty())) {
+			if (songNumber < listSongs.getItems().size() - 1) {
+				musicStop();
+				songNumber++;
+				String dir = listFolders.getSelectionModel().selectedItemProperty().get();
+				String musica = listSongs.getItems().get(songNumber);
+				Path p = Path.of(dir, musica);
+				if (!musica.isBlank()) {
+					media = new Media(p.toUri().toString());
+					mediaPlayer = new MediaPlayer(media);
+					sSongProgress.setValue(0);
+					listSongs.getSelectionModel().select(songNumber);
+					update();
+				}
+			} else {
+				musicStop();
+				songNumber = 0;
+				String dir = listFolders.getSelectionModel().selectedItemProperty().get();
+				String musica = listSongs.getItems().get(songNumber);
+				Path p = Path.of(dir, musica);
+				if (!musica.isBlank()) {
+					media = new Media(p.toUri().toString());
+					mediaPlayer = new MediaPlayer(media);
+					sSongProgress.setValue(0);
+					listSongs.getSelectionModel().select(songNumber);
+					update();
+				}
+			}
+
+		}
+	}
+
+	@FXML
+	protected void musicPlay(ActionEvent event) {
 		if (mediaPlayer == null && (!listFolders.getItems().isEmpty())) {
-			novoPlayer();
-			songNumber = listSongs.getSelectionModel().getSelectedIndex();
-			mediaPlayer.play();
-			listSongs.getSelectionModel().select(songNumber);
-			update();
-			return;
+			String dir = listFolders.getSelectionModel().selectedItemProperty().get();
+			String musica = listSongs.getSelectionModel().getSelectedItem();
+			Path p = Path.of(dir, musica);
+			if (!musica.isBlank()) {
+				media = new Media(p.toUri().toString());
+				mediaPlayer = new MediaPlayer(media);
+				sSongProgress.setValue(0);
+				songNumber = listSongs.getSelectionModel().getSelectedIndex();
+				mediaPlayer.play();
+				listSongs.getSelectionModel().select(songNumber);
+				update();
+				return;
+			}
+
 		}
 		if (mediaPlayer != null) {
 			if (mediaPlayer.getStatus().equals(Status.PLAYING)
-					&& listSongs.getSelectionModel().getSelectedIndex() != songNumber)
-
-			{
+					&& listSongs.getSelectionModel().getSelectedIndex() != songNumber) {
 				musicStop();
 				if (!listFolders.getItems().isEmpty()) {
-					novoPlayer();
-					songNumber = listSongs.getSelectionModel().getSelectedIndex();
-					mediaPlayer.play();
-					update();
-					return;
-
+					String dir = listFolders.getSelectionModel().selectedItemProperty().get();
+					String musica = listSongs.getSelectionModel().getSelectedItem();
+					Path p = Path.of(dir, musica);
+					if (!musica.isBlank()) {
+						media = new Media(p.toUri().toString());
+						mediaPlayer = new MediaPlayer(media);
+						sSongProgress.setValue(0);
+						songNumber = listSongs.getSelectionModel().getSelectedIndex();
+						mediaPlayer.play();
+						update();
+						return;
+					}
 				}
 			}
+
 			mediaPlayer.play();
 		}
 	}
@@ -222,47 +269,31 @@ public class TelaPrincipalController {
 			musicStop();
 			if (songNumber > 0) {
 				songNumber--;
+				String dir = listFolders.getSelectionModel().selectedItemProperty().get();
+				String musica = listSongs.getItems().get(songNumber);
+				Path p = Path.of(dir, musica);
+				if (!musica.isBlank()) {
+					media = new Media(p.toUri().toString());
+					mediaPlayer = new MediaPlayer(media);
+					sSongProgress.setValue(0);
+					listSongs.getSelectionModel().select(songNumber);
+					update();
+				}
 			} else {
 				songNumber = listSongs.getItems().size() - 1;
-
+				String dir = listFolders.getSelectionModel().selectedItemProperty().get();
+				String musica = listSongs.getItems().get(songNumber);
+				Path p = Path.of(dir, musica);
+				if (!musica.isBlank()) {
+					media = new Media(p.toUri().toString());
+					mediaPlayer = new MediaPlayer(media);
+					sSongProgress.setValue(0);
+					listSongs.getSelectionModel().select(songNumber);
+					update();
+				}
 			}
-			resetarMusica();
+
 		}
-	}
-
-	@FXML
-	protected void musicNext() {
-		if (mediaPlayer != null && (!listFolders.getItems().isEmpty())) {
-			musicStop();
-			if (songNumber < listSongs.getItems().size() - 1) {
-				songNumber++;
-			} else {
-				songNumber = 0;
-			}
-			resetarMusica();
-		}
-	}
-
-	protected void resetarMusica() {
-		novoPlayer();
-		listSongs.getSelectionModel().select(songNumber);
-		update();
-
-	}
-
-	protected void novoPlayer() {
-		Path p = getCurrentMusicPath();
-		if (mediaPlayer == null && p != null) {
-			media = new Media(p.toUri().toString());
-			mediaPlayer = new MediaPlayer(media);
-			sSongProgress.setValue(0);
-		}
-	}
-
-	protected Path getCurrentMusicPath() {
-		String caminho = listFolders.getSelectionModel().selectedItemProperty().get();
-		String musica = listSongs.getItems().get(songNumber);
-		return Path.of(caminho, musica);
 	}
 
 	@FXML
