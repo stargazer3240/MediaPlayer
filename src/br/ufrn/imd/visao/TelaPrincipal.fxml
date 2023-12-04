@@ -31,7 +31,7 @@
                   <VBox spacing="5.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Label alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="25.0" text="Folders" />
-                        <ListView fx:id="listFolders" onMouseClicked="#atualizarSongs" VBox.vgrow="ALWAYS">
+                        <ListView fx:id="listFolders" onMouseClicked="#atualizarSongsDiretorio" VBox.vgrow="ALWAYS">
                            <contextMenu>
                               <ContextMenu>
                                 <items>

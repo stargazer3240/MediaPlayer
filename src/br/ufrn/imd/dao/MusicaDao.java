@@ -55,8 +55,7 @@ public class MusicaDao {
 
 	private boolean checarMusica(Musica teste) {
 		for (Musica m : musicas) {
-			if (m.getNome().equals(teste.getNome())
-					&& m.getArquivo().getAbsolutePath().equals(teste.getArquivo().getAbsolutePath())) {
+			if (m.equals(teste)) {
 				return true;
 			}
 		}

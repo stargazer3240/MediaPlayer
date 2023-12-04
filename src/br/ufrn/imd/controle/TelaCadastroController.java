@@ -36,7 +36,7 @@ public class TelaCadastroController {
 	private TextField txtUsuario;
 
 	private enum TipoFeedback {
-		VALIDO, INVALIDO
+		SUCESSO, USER_EXISTENTE, SENHA_INVALIDA, NOME_INVALIDO
 	}
 
 	@FXML
@@ -48,12 +48,20 @@ public class TelaCadastroController {
 	public void checarCredenciais() {
 		UsuarioDao uDao = UsuarioDao.getInstance();
 		String nome = txtUsuario.getText();
+		if (nome.contains(" ") || nome.contains("|")) {
+			gerarFeedback(TipoFeedback.NOME_INVALIDO);
+			return;
+		}
 		String senha = txtSenha.getText();
+		if (senha.contains(" ") || senha.contains("|")) {
+			gerarFeedback(TipoFeedback.SENHA_INVALIDA);
+			return;
+		}
 		boolean existente = uDao.checarCredenciais(nome, senha);
 		if (!existente) {
 			cadastrarUsuario(nome, senha);
 		} else {
-			gerarFeedback(TipoFeedback.INVALIDO);
+			gerarFeedback(TipoFeedback.USER_EXISTENTE);
 		}
 	}
 
@@ -65,26 +73,40 @@ public class TelaCadastroController {
 		}
 		if (!nome.isBlank() && !senha.isBlank()) {
 			uDao.criarUsuario(nome, senha, tipo);
-			gerarFeedback(TipoFeedback.VALIDO);
+			gerarFeedback(TipoFeedback.SUCESSO);
 		}
 	}
 
 	private void gerarFeedback(TipoFeedback t) {
 		lblFeedback.setVisible(true);
-		if (t.equals(TipoFeedback.VALIDO)) {
-			gerarFeedbackValido();
-		} else if (t.equals(TipoFeedback.INVALIDO)) {
-			gerarFeedbackInvalido();
+		if (t.equals(TipoFeedback.SUCESSO)) {
+			gerarFeedbackSucesso();
+		} else if (t.equals(TipoFeedback.USER_EXISTENTE)) {
+			gerarFeedbackUserExistente();
+		} else if (t.equals(TipoFeedback.SENHA_INVALIDA)) {
+			gerarFeedbackSenhaInvalida();
+		} else if (t.equals(TipoFeedback.NOME_INVALIDO)) {
+			gerarFeedbackNomeInvalido();
 		}
 	}
 
-	private void gerarFeedbackValido() {
+	private void gerarFeedbackSucesso() {
 		lblFeedback.setText("Account created with success.");
 		lblFeedback.setTextFill(Paint.valueOf("green"));
 	}
 
-	private void gerarFeedbackInvalido() {
+	private void gerarFeedbackUserExistente() {
 		lblFeedback.setText("Account already exists!");
+		lblFeedback.setTextFill(Paint.valueOf("red"));
+	}
+
+	private void gerarFeedbackSenhaInvalida() {
+		lblFeedback.setText("Invalid password!");
+		lblFeedback.setTextFill(Paint.valueOf("red"));
+	}
+
+	private void gerarFeedbackNomeInvalido() {
+		lblFeedback.setText("Invalid username!");
 		lblFeedback.setTextFill(Paint.valueOf("red"));
 	}
 }

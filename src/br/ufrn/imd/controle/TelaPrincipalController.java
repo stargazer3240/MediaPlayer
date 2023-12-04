@@ -107,7 +107,7 @@ public class TelaPrincipalController {
 	}
 
 	@FXML
-	protected void atualizarSongs() {
+	protected void atualizarSongsDiretorio() {
 		if (!listFolders.getItems().isEmpty()) {
 			String caminho = listFolders.getSelectionModel().selectedItemProperty().get();
 			listarMusicasDiretorio(caminho);
@@ -117,7 +117,7 @@ public class TelaPrincipalController {
 	protected void listarMusicasDiretorio(String caminho) {
 		MusicaDao mDao = MusicaDao.getInstance();
 		listSongs.getItems().clear();
-		try (DirectoryStream<Path> dir = Files.newDirectoryStream(Path.of(caminho), "*.mp3")) {
+		try (DirectoryStream<Path> dir = Files.newDirectoryStream(Path.of(caminho), "*.{mp3,wav}")) {
 			for (Path p : dir) {
 				listSongs.getItems().add(p.getFileName().toString());
 				mDao.adicionarMusica(p);

@@ -7,36 +7,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
+import br.ufrn.imd.modelo.Diretorio;
+
 public class DiretorioDao {
 	private static DiretorioDao dDao;
-	private ArrayList<Pair> diretorios = new ArrayList<>();
-
-	private class Pair {
-		private final Integer userId;
-		private final File diretorio;
-
-		public Pair(Integer id, File dir) {
-			this.userId = id;
-			this.diretorio = dir;
-		}
-
-		@Override
-		public String toString() {
-			return userId + " " + diretorio.getAbsolutePath();
-		}
-
-		@Override
-		public boolean equals(Object o) {
-			if (o == this) {
-				return true;
-			}
-			if (!(o instanceof Pair)) {
-				return false;
-			}
-			Pair c = (Pair) o;
-			return userId.equals(c.userId) && diretorio.getAbsolutePath().equals(c.diretorio.getAbsolutePath());
-		}
-	}
+	private ArrayList<Diretorio> diretorios = new ArrayList<>();
 
 	public static DiretorioDao getInstance() {
 		if (dDao == null) {
@@ -51,16 +26,16 @@ public class DiretorioDao {
 	}
 
 	public void adicionarDiretorio(Integer id, File d) {
-		Pair novo = new Pair(id, d);
+		Diretorio novo = new Diretorio(id, d);
 		if (!checarDiretorio(novo)) {
 			diretorios.add(novo);
 		}
 		salvarDiretorios();
 	}
 
-	private boolean checarDiretorio(Pair teste) {
-		for (Pair p : diretorios) {
-			if (teste.equals(p)) {
+	private boolean checarDiretorio(Diretorio teste) {
+		for (Diretorio d : diretorios) {
+			if (teste.equals(d)) {
 				return true;
 			}
 		}
@@ -79,8 +54,8 @@ public class DiretorioDao {
 
 	private ArrayList<String> formarOutput() {
 		ArrayList<String> output = new ArrayList<>();
-		for (Pair p : diretorios) {
-			output.add(p.toString());
+		for (Diretorio d : diretorios) {
+			output.add(d.toString());
 		}
 		return output;
 	}

@@ -24,6 +24,18 @@ public class Musica {
 
 	@Override
 	public String toString() {
-		return nome + " " + arquivo.toURI();
+		return arquivo.toURI().toString();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o == this) {
+			return true;
+		}
+		if (!(o instanceof Musica)) {
+			return false;
+		}
+		Musica c = (Musica) o;
+		return arquivo.toURI().equals(c.getArquivo().toURI());
 	}
 }

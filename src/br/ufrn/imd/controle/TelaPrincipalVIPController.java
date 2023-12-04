@@ -17,4 +17,16 @@ public class TelaPrincipalVIPController extends TelaPrincipalController {
 
 	@FXML
 	private MenuItem mItAdicionarPlaylist;
+
+	@FXML
+	private void atualizarSongsPlaylist() {
+		if (!listPlaylists.getItems().isEmpty()) {
+			String caminho = listPlaylists.getSelectionModel().selectedItemProperty().get();
+			listarMusicasPlaylist(caminho);
+		}
+	}
+
+	private void listarMusicasPlaylist(String caminho) {
+
+	}
 }

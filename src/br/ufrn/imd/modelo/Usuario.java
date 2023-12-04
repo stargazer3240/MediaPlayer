@@ -43,6 +43,6 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return id + " " + login + " " + senha;
+		return id + " | " + login + " | " + senha;
 	}
 }
